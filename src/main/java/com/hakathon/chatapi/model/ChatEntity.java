@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "chat")
 public class ChatEntity {
     @Id
-    private long id;
+    private String id;
 
     private String clientId;
     private String managerId;
