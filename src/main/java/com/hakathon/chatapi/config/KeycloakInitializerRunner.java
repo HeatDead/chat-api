@@ -95,17 +95,13 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
         List<String> roles = new ArrayList<>();
         if ("admin".equals(userPass.username())) {
             roles.add(WebSecurityConfig.CHAT_MANAGER);
-        }
-        if ("credit_manager".equals(userPass.username())) {
+        } else if ("credit_manager".equals(userPass.username())) {
             roles.add(Manager.CREDIT_MANAGER.toString());
-        }
-        if ("expense_manager".equals(userPass.username())) {
+        } else if ("expense_manager".equals(userPass.username())) {
             roles.add(Manager.EXPENSE_MANAGER.toString());
-        }
-        if ("factoring_manager".equals(userPass.username())) {
+        } else if ("factoring_manager".equals(userPass.username())) {
             roles.add(Manager.FACTORING_MANAGER.toString());
-        }
-        if ("guarantees_manager".equals(userPass.username())) {
+        } else if ("guarantees_manager".equals(userPass.username())) {
             roles.add(Manager.GUARANTEES_MANAGER.toString());
         }else {
             roles.add(WebSecurityConfig.USER);
