@@ -9,6 +9,7 @@ import com.hakathon.chatapi.repository.ChatRepository;
 import com.hakathon.chatapi.repository.MessageRepository;
 import com.hakathon.chatapi.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class MessageController {
@@ -34,8 +36,9 @@ public class MessageController {
     @MessageMapping("/chat")
     public void sendMessage(@RequestBody MessageRequest messageReq) {
         ChatEntity ent = chatRepository.findById(messageReq.getChatId()).get();
-        System.out.println(ent);
+        log.info(ent.toString());
         if(ent == null) return;
+        log.info("senderId " + messageReq.getSenderId() + " ClientId " + ent.getClientId() + " ManagerId " + ent.getManagerId());
         //if(messageReq.getSenderId() != ent.getClientId() && messageReq.getSenderId() != ent.getManagerId()) return;
         MessageEntity en = new MessageEntity();
         en.setText(messageReq.getText());

@@ -10,6 +10,9 @@ public class ChatEntity {
     @Id
     private String id;
 
+    private String chatName;
+    private ChatStatus chatStatus;
+
     private String clientId;
     private String managerId;
 }
