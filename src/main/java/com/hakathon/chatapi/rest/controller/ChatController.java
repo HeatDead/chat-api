@@ -54,7 +54,7 @@ public class ChatController {
                 continue;
             }
             if(ce.getManagerId() != null) {
-                if (ce.getManagerId() != username) {
+                if (!ce.getManagerId().equals(username)) {
                     chats.remove(ce);
                 }
             } else {
