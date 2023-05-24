@@ -1,4 +1,4 @@
-package com.hakathon.chatapi.security;
+package com.hakathon.chatapi.config;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

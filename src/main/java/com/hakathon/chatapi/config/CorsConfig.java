@@ -1,4 +1,4 @@
-package com.hakathon.chatapi.security;
+package com.hakathon.chatapi.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

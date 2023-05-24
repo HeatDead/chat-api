@@ -1,6 +1,6 @@
-package com.hakathon.chatapi.runner;
+package com.hakathon.chatapi.config;
 
-import com.hakathon.chatapi.security.WebSecurityConfig;
+import com.hakathon.chatapi.config.WebSecurityConfig;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;

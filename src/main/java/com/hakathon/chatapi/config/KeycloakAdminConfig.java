@@ -1,4 +1,4 @@
-package com.hakathon.chatapi.runner;
+package com.hakathon.chatapi.config;
 
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
