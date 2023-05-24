@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
-@CrossOrigin
 public class UsersController {
 
     @GetMapping("/registration/{userName}")
