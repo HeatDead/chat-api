@@ -75,7 +75,7 @@ public class ChatController {
         return chats;
     }
 
-    @GetMapping("getChat/{chatId}")
+    @GetMapping("/getChat/{chatId}")
     public ChatEntity getChat(@PathVariable String chatId) {
         ChatEntity ce = chatRepository.findById(chatId).get();
         return ce;
@@ -86,6 +86,8 @@ public class ChatController {
         ChatEntity ce = chatRepository.findById(request.getChatId()).get();
         if(ce == null)
             throw new IllegalArgumentException("The chat with this id does not exist");
+        if(ce.getManagerId() != null)
+            throw new IllegalArgumentException("The chat already reserved");
         ce.setChatStatus(ChatStatus.ON_FIRST_LINE);
         ce.setManagerId(request.getManagerId());
         log.info("Reserved: " + ce.toString());
@@ -109,7 +111,7 @@ public class ChatController {
         ChatEntity ce = chatRepository.findById(request.getChatId()).get();
         if(ce == null)
             throw new IllegalArgumentException("The chat with this id does not exist");
-        if(ce.getManagerId() != request.getManagerId())
+        if(!ce.getManagerId().equals(request.getManagerId()))
             throw new IllegalArgumentException("The chat does not reserved by this manager");
         ce.setChatStatus(ChatStatus.CLOSED);
         ce.setManagerId(null);

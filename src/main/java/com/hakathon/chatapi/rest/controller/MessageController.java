@@ -36,7 +36,13 @@ public class MessageController {
         log.info(ent.toString());
         if(ent == null) return;
         log.info("senderId " + messageReq.getSenderId() + " ClientId " + ent.getClientId() + " ManagerId " + ent.getManagerId());
-        //if(messageReq.getSenderId() != ent.getClientId() && messageReq.getSenderId() != ent.getManagerId()) return;
+        if(!messageReq.getSenderId().equals(ent.getClientId())) {
+            log.info("err1");
+            if (!messageReq.getSenderId().equals(ent.getManagerId())) {
+                log.info("err2");
+                return;
+            }
+        }
         MessageEntity en = new MessageEntity();
         en.setText(messageReq.getText());
         en.setChatId(messageReq.getChatId());
