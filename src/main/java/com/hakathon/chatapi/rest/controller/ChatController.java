@@ -75,6 +75,12 @@ public class ChatController {
         return chats;
     }
 
+    @GetMapping("getChat/{chatId}")
+    public ChatEntity getChat(@PathVariable String chatId) {
+        ChatEntity ce = chatRepository.findById(chatId).get();
+        return ce;
+    }
+
     @PostMapping("/reserveChat")
     public void reserveChat(@RequestBody ReserveChatRequest request) {
         ChatEntity ce = chatRepository.findById(request.getChatId()).get();
