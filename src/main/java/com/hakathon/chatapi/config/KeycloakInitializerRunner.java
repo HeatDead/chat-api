@@ -32,9 +32,9 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
                 .filter(r -> r.getRealm().equals(COMPANY_SERVICE_REALM_NAME))
                 .findAny();
         if (representationOptional.isPresent()) {
-            //log.info("Removing already pre-configured '{}' realm", COMPANY_SERVICE_REALM_NAME);
-            //keycloakAdmin.realm(COMPANY_SERVICE_REALM_NAME).remove();
-            return;
+            log.info("Removing already pre-configured '{}' realm", COMPANY_SERVICE_REALM_NAME);
+            keycloakAdmin.realm(COMPANY_SERVICE_REALM_NAME).remove();
+            //return;
         }
 
         // Realm
@@ -49,7 +49,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
         clientRepresentation.setDirectAccessGrantsEnabled(true);
         clientRepresentation.setPublicClient(true);
         clientRepresentation.setRedirectUris(List.of(CHAT_APP_REDIRECT_URL));
-        clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER});
+        clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER, "MANAGER_1", "MANAGER_2"});
         realmRepresentation.setClients(List.of(clientRepresentation));
 
         // Users

@@ -48,7 +48,7 @@ public class MessageController {
     }
 
     @GetMapping("/messages/{chatId}")
-    public List<MessageEntity> sendMessage(@PathVariable long chatId) {
+    public List<MessageEntity> sendMessage(@PathVariable String chatId) {
         return messageRepository.findAllByChatId(chatId);
     }
 }

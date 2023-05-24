@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface MessageRepository extends MongoRepository<MessageEntity, String> {
-    List<MessageEntity> findAllByChatId(long chatId);
+    List<MessageEntity> findAllByChatId(String chatId);
 }
