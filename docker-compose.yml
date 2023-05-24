@@ -25,6 +25,8 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:21.1.1
     container_name: keycloak
+    volumes:
+      - /src/main/resources/rowi-theme/:/opt/keycloak/themes/rowi-theme
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
