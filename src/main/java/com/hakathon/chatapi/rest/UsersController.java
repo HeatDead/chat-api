@@ -19,7 +19,7 @@ import java.util.Set;
 public class UsersController {
     private final UserExtraRepository userExtraRepository;
 
-    @GetMapping("/registration/{userName}")
+/*    @GetMapping("/registration/{userName}")
     public ResponseEntity<Void> register(@PathVariable String userName) {
         System.out.println("handling register user request: " + userName);
         try {
@@ -28,7 +28,7 @@ public class UsersController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.ok().build();
-    }
+    }*/
 
     @GetMapping("/fetchAllUsers")
     public List<String> fetchAll() {

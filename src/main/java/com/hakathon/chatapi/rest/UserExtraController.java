@@ -25,6 +25,7 @@ public class UserExtraController {
         return userExtraService.validateAndGetUserExtra(principal.getName());
     }
 
+
     @PostMapping("/me")
     public UserExtra saveUserExtra(@RequestBody UserExtraRequest updateUserExtraRequest, Principal principal) {
         Optional<UserExtra> userExtraOptional = userExtraService.getUserExtra(principal.getName());

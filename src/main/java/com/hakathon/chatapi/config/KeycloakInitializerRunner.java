@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
-import org.keycloak.representations.idm.ClientRepresentation;
-import org.keycloak.representations.idm.CredentialRepresentation;
-import org.keycloak.representations.idm.RealmRepresentation;
-import org.keycloak.representations.idm.UserRepresentation;
+import org.keycloak.representations.idm.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -35,8 +32,9 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
                 .filter(r -> r.getRealm().equals(COMPANY_SERVICE_REALM_NAME))
                 .findAny();
         if (representationOptional.isPresent()) {
-            log.info("Removing already pre-configured '{}' realm", COMPANY_SERVICE_REALM_NAME);
-            keycloakAdmin.realm(COMPANY_SERVICE_REALM_NAME).remove();
+            //log.info("Removing already pre-configured '{}' realm", COMPANY_SERVICE_REALM_NAME);
+            //keycloakAdmin.realm(COMPANY_SERVICE_REALM_NAME).remove();
+            return;
         }
 
         // Realm
