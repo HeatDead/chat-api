@@ -11,6 +11,6 @@ public class MessageEntity {
     private String id;
 
     private String text;
-    private long chatId;
+    private String chatId;
     private String senderId;
 }

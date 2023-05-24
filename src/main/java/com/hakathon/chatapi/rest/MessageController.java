@@ -34,21 +34,23 @@ public class MessageController {
     @MessageMapping("/chat")
     public void sendMessage(@RequestBody MessageRequest messageReq) {
         ChatEntity ent = chatRepository.findById(messageReq.getChatId()).get();
-
+        System.out.println(ent);
         if(ent == null) return;
-
-        if(messageReq.getSenderId() != ent.getClientId() && messageReq.getSenderId() != ent.getManagerId()) return;
-
+        //if(messageReq.getSenderId() != ent.getClientId() && messageReq.getSenderId() != ent.getManagerId()) return;
         MessageEntity en = new MessageEntity();
         en.setText(messageReq.getText());
         en.setChatId(messageReq.getChatId());
         en.setSenderId(messageReq.getSenderId());
         messageRepository.save(en);
+        System.out.println(en);
         simpMessagingTemplate.convertAndSend("/topic/messages/" + messageReq.getChatId(), messageReq);
     }
 
     @GetMapping("/messages/{chatId}")
-    public List<MessageEntity> sendMessage(@PathVariable String chatId) {
-        return messageRepository.findAllByChatId(chatId);
+    public List<MessageEntity> getMessages(@PathVariable String chatId) {
+        System.out.println(chatId);
+        List<MessageEntity> ents = messageRepository.findAllByChatId(chatId);
+        System.out.println(ents);
+        return ents;
     }
 }
