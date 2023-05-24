@@ -1,18 +1,13 @@
-package com.hakathon.chatapi.rest;
+package com.hakathon.chatapi.rest.controller;
 
-import com.hakathon.chatapi.UserStorage;
 import com.hakathon.chatapi.model.UserExtra;
 import com.hakathon.chatapi.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor

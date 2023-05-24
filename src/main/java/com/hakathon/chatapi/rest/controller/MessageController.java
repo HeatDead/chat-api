@@ -1,17 +1,14 @@
-package com.hakathon.chatapi.rest;
+package com.hakathon.chatapi.rest.controller;
 
-import com.hakathon.chatapi.UserStorage;
 import com.hakathon.chatapi.model.ChatEntity;
 import com.hakathon.chatapi.model.MessageEntity;
-import com.hakathon.chatapi.model.MessageModel;
-import com.hakathon.chatapi.model.MessageRequest;
+import com.hakathon.chatapi.request.MessageRequest;
 import com.hakathon.chatapi.repository.ChatRepository;
 import com.hakathon.chatapi.repository.MessageRepository;
 import com.hakathon.chatapi.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,15 +42,15 @@ public class MessageController {
         en.setChatId(messageReq.getChatId());
         en.setSenderId(messageReq.getSenderId());
         messageRepository.save(en);
-        System.out.println(en);
+        log.info(en.toString());
         simpMessagingTemplate.convertAndSend("/topic/messages/" + messageReq.getChatId(), messageReq);
     }
 
     @GetMapping("/messages/{chatId}")
     public List<MessageEntity> getMessages(@PathVariable String chatId) {
-        System.out.println(chatId);
+        log.info("Getting messages of chat: " + chatId);
         List<MessageEntity> ents = messageRepository.findAllByChatId(chatId);
-        System.out.println(ents);
+        log.info("Messages of chat: " + ents);
         return ents;
     }
 }

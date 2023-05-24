@@ -1,6 +1,6 @@
 package com.hakathon.chatapi.config;
 
-import com.hakathon.chatapi.config.WebSecurityConfig;
+import com.hakathon.chatapi.model.Manager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.Keycloak;
@@ -49,7 +49,11 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
         clientRepresentation.setDirectAccessGrantsEnabled(true);
         clientRepresentation.setPublicClient(true);
         clientRepresentation.setRedirectUris(List.of(CHAT_APP_REDIRECT_URL));
-        clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER, "MANAGER_1", "MANAGER_2"});
+        clientRepresentation.setDefaultRoles(new String[]{WebSecurityConfig.USER,
+                Manager.CREDIT_MANAGER.toString(),
+                Manager.EXPENSE_MANAGER.toString(),
+                Manager.FACTORING_MANAGER.toString(),
+                Manager.GUARANTEES_MANAGER.toString()});
         realmRepresentation.setClients(List.of(clientRepresentation));
 
         // Users
@@ -89,9 +93,22 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
 
     private Map<String, List<String>> getClientRoles(UserPass userPass) {
         List<String> roles = new ArrayList<>();
-        roles.add(WebSecurityConfig.USER);
         if ("admin".equals(userPass.username())) {
             roles.add(WebSecurityConfig.CHAT_MANAGER);
+        }
+        if ("credit_manager".equals(userPass.username())) {
+            roles.add(Manager.CREDIT_MANAGER.toString());
+        }
+        if ("expense_manager".equals(userPass.username())) {
+            roles.add(Manager.EXPENSE_MANAGER.toString());
+        }
+        if ("factoring_manager".equals(userPass.username())) {
+            roles.add(Manager.FACTORING_MANAGER.toString());
+        }
+        if ("guarantees_manager".equals(userPass.username())) {
+            roles.add(Manager.GUARANTEES_MANAGER.toString());
+        }else {
+            roles.add(WebSecurityConfig.USER);
         }
         return Map.of(CHAT_APP_CLIENT_ID, roles);
     }
@@ -102,7 +119,11 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
     private static final String CHAT_APP_REDIRECT_URL = "http://localhost:3000/*";
     private static final List<UserPass> CHAT_APP_USERS = Arrays.asList(
             new UserPass("admin", "admin"),
-            new UserPass("user", "user"));
+            new UserPass("user", "user"),
+            new UserPass("credit_manager", "manager"),
+            new UserPass("expense_manager", "manager"),
+            new UserPass("factoring_manager", "manager"),
+            new UserPass("guarantees_manager", "manager"));
 
     private record UserPass(String username, String password) {
     }

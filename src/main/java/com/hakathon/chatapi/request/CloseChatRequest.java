@@ -1,9 +1,9 @@
-package com.hakathon.chatapi.model;
+package com.hakathon.chatapi.request;
 
 import lombok.Data;
 
 @Data
-public class ReserveChatRequest {
+public class CloseChatRequest {
     private String chatId;
     private String managerId;
 }

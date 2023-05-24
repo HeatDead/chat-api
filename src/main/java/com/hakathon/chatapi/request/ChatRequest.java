@@ -1,4 +1,4 @@
-package com.hakathon.chatapi.model;
+package com.hakathon.chatapi.request;
 
 import lombok.Data;
 

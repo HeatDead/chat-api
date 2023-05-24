@@ -1,4 +1,4 @@
-package com.hakathon.chatapi.rest;
+package com.hakathon.chatapi.rest.controller;
 
 import com.hakathon.chatapi.model.UserExtra;
 import com.hakathon.chatapi.rest.dto.UserExtraRequest;

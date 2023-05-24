@@ -12,6 +12,7 @@ public class ChatEntity {
 
     private String chatName;
     private ChatStatus chatStatus;
+    private Manager secondLineManager;
 
     private String clientId;
     private String managerId;
