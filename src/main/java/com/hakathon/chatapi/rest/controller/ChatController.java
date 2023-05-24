@@ -41,8 +41,9 @@ public class ChatController {
         return chatRepository.findAllByClientId(username);
     }
 
-    @GetMapping("/availableChats/{username}/{manager}")
-    public List<ChatEntity> getAvailableChats(@PathVariable String username, @PathVariable Manager manager) {
+    @GetMapping("/availableChats/{username}/{man}")
+    public List<ChatEntity> getAvailableChats(@PathVariable String username, @PathVariable String man) {
+        Manager manager = Manager.valueOf(man);
         log.info(username + " " + manager.toString());
         List<ChatEntity> chats = chatRepository.findAll();
         for (ChatEntity ce : chats) {
