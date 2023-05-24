@@ -41,8 +41,9 @@ public class ChatController {
         return chatRepository.findAllByClientId(username);
     }
 
-    @GetMapping("/availableChats")
-    public List<ChatEntity> getAvailableChats(@RequestBody AvailableChatRequest request) {
+    @GetMapping("/availableChats/{username}/{manager}")
+    public List<ChatEntity> getAvailableChats(@PathVariable String username, @PathVariable Manager manager) {
+        log.info(username + " " + manager.toString());
         List<ChatEntity> chats = chatRepository.findAll();
         for (ChatEntity ce : chats) {
             if (ce.getChatStatus() == ChatStatus.CLOSED) {
@@ -50,18 +51,18 @@ public class ChatController {
                 continue;
             }
             if(ce.getManagerId() != null) {
-                if (ce.getManagerId() != request.getUsername()) {
+                if (ce.getManagerId() != username) {
                     chats.remove(ce);
                 }
             } else {
                 if(ce.getChatStatus() == ChatStatus.PENDING_ON_SECOND_LINE) {
-                    if(ce.getSecondLineManager() != request.getManager()) {
+                    if(ce.getSecondLineManager() != manager) {
                         chats.remove(ce);
                         continue;
                     }
                 }
                 if(ce.getChatStatus() == ChatStatus.PENDING_ON_FIRST_LINE) {
-                    if(request.getManager() == Manager.CHAT_MANAGER) {
+                    if(manager == Manager.CHAT_MANAGER) {
                         chats.remove(ce);
                     }
                 }
