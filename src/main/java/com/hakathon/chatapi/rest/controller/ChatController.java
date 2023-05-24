@@ -46,7 +46,9 @@ public class ChatController {
         Manager manager = Manager.valueOf(man);
         log.info(username + " " + manager.toString());
         List<ChatEntity> chats = chatRepository.findAll();
-        for (ChatEntity ce : chats) {
+        log.info(chats.toString());
+        for (int i = 0; i < chats.size(); i++) {
+            ChatEntity ce = chats.get(i);
             if (ce.getChatStatus() == ChatStatus.CLOSED) {
                 chats.remove(ce);
                 continue;
@@ -63,7 +65,7 @@ public class ChatController {
                     }
                 }
                 if(ce.getChatStatus() == ChatStatus.PENDING_ON_FIRST_LINE) {
-                    if(manager == Manager.CHAT_MANAGER) {
+                    if(manager != Manager.CHAT_MANAGER) {
                         chats.remove(ce);
                     }
                 }
