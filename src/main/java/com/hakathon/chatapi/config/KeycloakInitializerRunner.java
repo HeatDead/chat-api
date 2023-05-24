@@ -42,7 +42,7 @@ public class KeycloakInitializerRunner implements CommandLineRunner {
         realmRepresentation.setRealm(COMPANY_SERVICE_REALM_NAME);
         realmRepresentation.setEnabled(true);
         realmRepresentation.setRegistrationAllowed(true);
-        realmRepresentation.setAccountTheme("rowi-theme");
+
         // Client
         ClientRepresentation clientRepresentation = new ClientRepresentation();
         clientRepresentation.setClientId(CHAT_APP_CLIENT_ID);
