@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -46,33 +47,37 @@ public class ChatController {
         Manager manager = Manager.valueOf(man);
         log.info(username + " " + manager.toString());
         List<ChatEntity> chats = chatRepository.findAll();
+        List<ChatEntity> avChats = new ArrayList<>();
         log.info(chats.toString());
         for (int i = 0; i < chats.size(); i++) {
             ChatEntity ce = chats.get(i);
             if (ce.getChatStatus() == ChatStatus.CLOSED) {
-                chats.remove(ce);
+                //chats.remove(ce);
                 continue;
             }
             if(ce.getManagerId() != null) {
                 if (!ce.getManagerId().equals(username)) {
-                    chats.remove(ce);
+                    //chats.remove(ce);
+                    continue;
                 }
             } else {
                 if(ce.getChatStatus() == ChatStatus.PENDING_ON_SECOND_LINE) {
                     if(ce.getSecondLineManager() != manager) {
-                        chats.remove(ce);
+                        //chats.remove(ce);
                         continue;
                     }
                 }
                 if(ce.getChatStatus() == ChatStatus.PENDING_ON_FIRST_LINE) {
                     if(manager != Manager.CHAT_MANAGER) {
-                        chats.remove(ce);
+                        //chats.remove(ce);
+                        continue;
                     }
                 }
             }
+            avChats.add(ce);
         }
-        log.info("Available chats: " + chats.toString());
-        return chats;
+        log.info("Available chats: " + avChats.toString());
+        return avChats;
     }
 
     @GetMapping("/getChat/{chatId}")
