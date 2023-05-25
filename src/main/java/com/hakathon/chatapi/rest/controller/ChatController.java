@@ -88,7 +88,10 @@ public class ChatController {
             throw new IllegalArgumentException("The chat with this id does not exist");
         if(ce.getManagerId() != null)
             throw new IllegalArgumentException("The chat already reserved");
-        ce.setChatStatus(ChatStatus.ON_FIRST_LINE);
+        if(ce.getChatStatus() == ChatStatus.PENDING_ON_FIRST_LINE)
+            ce.setChatStatus(ChatStatus.ON_FIRST_LINE);
+        else if(ce.getChatStatus() == ChatStatus.PENDING_ON_SECOND_LINE)
+            ce.setChatStatus(ChatStatus.ON_SECOND_LINE);
         ce.setManagerId(request.getManagerId());
         log.info("Reserved: " + ce.toString());
         chatRepository.save(ce);
