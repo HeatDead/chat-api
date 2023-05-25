@@ -1,6 +1,7 @@
 package com.hakathon.chatapi.rest.controller;
 
 import com.hakathon.chatapi.model.ChatEntity;
+import com.hakathon.chatapi.model.ChatStatus;
 import com.hakathon.chatapi.model.MessageEntity;
 import com.hakathon.chatapi.request.MessageRequest;
 import com.hakathon.chatapi.repository.ChatRepository;
@@ -33,13 +34,14 @@ public class MessageController {
     @MessageMapping("/chat")
     public void sendMessage(@RequestBody MessageRequest messageReq) {
         ChatEntity ent = chatRepository.findById(messageReq.getChatId()).get();
+        if(ent == null)
+            throw new IllegalArgumentException("The chat does not exist");
         log.info(ent.toString());
-        if(ent == null) return;
         log.info("senderId " + messageReq.getSenderId() + " ClientId " + ent.getClientId() + " ManagerId " + ent.getManagerId());
+        if(ent.getChatStatus() == ChatStatus.CLOSED)
+            throw new IllegalArgumentException("The chat closed");
         if(!messageReq.getSenderId().equals(ent.getClientId())) {
-            log.info("err1");
             if (!messageReq.getSenderId().equals(ent.getManagerId())) {
-                log.info("err2");
                 return;
             }
         }
